@@ -1,0 +1,137 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> admin_navigation }}
+
+                    {{#if msg}}
+                        <div class="alert alert-warning" role="alert" style="margin: 10px;">
+                            {{msg}}
+                        </div>
+                    {{/if}}
+
+                     <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Post Management</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Article Title</th>
+                                                    <th>Date</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach posts}}
+                                                    <tr>
+                                                        <td>{{ title }}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        <td>
+                                                            <a class="btn btn-primary" href="/blog/{{slug}}" target="_blank">
+                                                                <i class="fa fa-eye"></i> View Article
+                                                            </a>
+                                                            <a onclick="return confirm('Are you sure?')" class="btn btn-danger" href="/admin/blog/delete?id={{_id}}">
+                                                                <i class="fa fa-trash"></i> Delete
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {{/forEach}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                     </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Create A New Article</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                               <div class="col-sm-12 col-md-8 col-lg-9">
+                                    <div class="row page-content">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="inner-box">
+                                            <div class="dashboard-wrapper">
+                                                <form action="/admin/blog" method="POST" enctype="multipart/form-data" >
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Post Title</label>
+                                                        <input class="form-control input-md post_title" name="title" placeholder="Title" type="text" required>
+                                                    </div>
+                                                    
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Featured Image Link</label>
+                                                        {{!-- <input class="form-control input-md post_title" name="image" placeholder="Link to Image" type="url" required> --}}
+                                                        <input class="form-control input-md post_image" name="image" placeholder="Image" type="file" accept="image/*">
+                                                    </div>
+                                                    <div class="form-group md-3">
+                                                        <label class="control-label">Construct Article</label>
+                                                        <textarea class="form-control" id="summernote" name="editordata" style=" height: 100px;" required placeholder="Start Typing Here"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Create Post</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+       {{> dashboard_footer}}
+        <script src="/js/jquery-min.js"></script>
+       <script src="/js/summernote.js"></script>
+      <script>
+        $(document).ready(function() {
+    
+            $('#summernote').summernote({
+                height: 350, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false // set focus to editable area after initializing summernote
+            });
+        });
+    </script>
+    </div>
+</body>
+
+

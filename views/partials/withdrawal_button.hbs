@@ -1,0 +1,19 @@
+{{#eq status 'Approved'}}
+    <td>
+        <button class="btn btn-info disable btn-disabled" disabled>
+            <i class="mdi mdi-approval"></i>
+            Withdrawal Approved
+        </button>
+    </td>
+    {{else}}
+    <td>
+        <form action="/admin/make-withdrawal" method="POST">
+            <input type="text" value="{{_id}}" name="id" hidden required/>
+            <button class="btn btn-info">
+                <i class="mdi mdi-approval"></i>
+                Approve Withdrawal
+            </button>
+        </form>
+    </td>
+    
+{{/eq}}

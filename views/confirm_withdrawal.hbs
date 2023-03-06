@@ -1,0 +1,106 @@
+{{> dashboard_header }}
+
+{{> dashboard_navigation }}
+
+<div class="content-body">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="page-title-content">
+                    <p><a href="/dashboard" class="text-dark">Dashboard</a> >>
+                        <a href="/wallet" class="text-dark">Wallet</a> >> <strong>Confirm
+                            Withdrawal</strong>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            {{#if msg}}
+            {{> alert}}
+            {{/if}}
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="">Confirm Your Withdrawal</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-danger" role="alert">
+                            <h5 class="alert-heading"><i class="fa fa-bell"></i> Note!</h5>
+                            <p>
+                                Once your Withdrawal request is approved, the funds would be sent to the provided wallet
+                                address below which you provided during signup.
+                            </p>
+                        </div>
+                        <hr />
+                        <ul class="balance-widget">
+                            <li>
+                                <h5>Withdrawal Amount</h5>
+                                <div class="text-end">
+                                    <h5 class="text-success">${{amountUSD}}</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Withdrawal Amount In BTC</h5>
+                                <div class="text-end">
+                                    <h5 class="text-warning">{{amountBTC}} BTC</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Payment Method</h5>
+                                <div class="text-end">
+                                    <h5 class="text-primary"><img height="70px"
+                                            src="https://www.inearentertainment.com/wp-content/uploads/2014/11/bitcoin-456x185.jpg" />
+                                    </h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Payment Gateway</h5>
+                                <div class="text-end">
+                                    <h5 class="text-primary"><img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAABCCAMAAABaULmmAAAAkFBMVEX///////0AXdOfuOMAX9P///sAYNB2nNpThNjo8fNPg9oAW9MAV9EAV8+/0usAV9MAUc4AY9CHp+XP2+0ATdCUsuEAU9ba6fX2+/yyxOZHftRPgNHP3u1hkNmkwOOeteMpa9FAdc2QruJcidWBpN2Gq9trlNhJft14pdw3dtQ/dtsAQ9GCotXf6vCOqeEhbNk4L7Z0AAADF0lEQVRYhe2WbZejJhTHuQgYBhBYY0RjHGMmzpiN0+//7Xo13WnS0+36ojvt2cP/TcB474/7AEhIVFRUVFRUVFTU/0TwXy/gZ4rP0d1FCFDVe/nzudAcWn4/h2drPoHLO7otH7gJZZ/AJUftpoc8fw6XyyK/nwP597nwNwPOAeDhnYRSefcWfPzxV/O1+w3I1G+Om0IC8PZ0rF9KtITqfMZ5kwz1WF9LzpHr22F8fWtmG56lr+PSeTwUm+MTGqNNmV7GIf8R74PbGmqt+pqTsrMo5V7waWo1wMkpShVV22rmMm0MU/aNAE+2Wiu6qwkJnbI7iyNOrkZbq3fXdRHzdstYmvRXItFrWiUXZc9AUiYI2Qg29MmBMR+QK8ZzMjChr4QXXd8mI3MZKXYsabLTHkir1aGqNsxmq8IN3vtyLiakbJdh4/I9NdMfXLohcyDKNd/6qvQM6zxhhkFS9U4GsZ+9lOiHnbAc/II/a7iZUxnhywLYsAwmrZJv3KfFqdXZRz9nVre3+hBPv2A9VBZufuyEq8b3ulXcXumwvIi4aikNnhnDI9fdcaVQPZCmP+2fBPtCGsdMd8BmKpS/XC7j2Cm6qr7vzCzrJaW21TLgF3p65Jo7bvCqJ8PW0d865ALPj9ZSl+L6fb1oX6/BQmJduWxVSel53o4QqEq/x+U4sRXW5ioDEZhntJzaTrgpsT7c0r9OkxKHW0Fq4QOeGEgw2XfjhZNw8p352WTmzo9AOpuVO93fPK4qL/ANE4cSwoQdI/YThJbRER65euFSyWEahBpIYU2OOZq5RYHdkWvcUSeqXiRw+dyvAQORnWWa6a+SvGm2E8pahtskpeyunzEBz8o7T7fKHJFuqH4aDgy5/ZaNoxNdQD+MOS/M9roy0+HN40HDErzb8fCx6jDnMzWC8I2+bU4MB7IjnlWWdsu1PO2pdUaZAvJRW03rafaTCjzu6Gv5j7Q/I8ZOavIyAMfgy7wJ8y7EZ4FD4GH57sAxHgkS/5yA37onlE0z4eWBN1eTy1s3cb6Y/9pfYlFRUVFRUVFRUVG/rn4HjhU0T5Sn/HYAAAAASUVORK5CYII=" />
+                                    </h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Exchange Rate</h5>
+                                <div class="text-end">
+                                    <h5 class="text-primary">{{rate}} BTC / USD</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Charges</h5>
+                                <div class="text-end">
+                                    <h5 class="text-primary">$0.0000</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Total Amount </h5>
+                                <div class="text-end">
+                                    <h5 class="text-success">${{amountUSD}}</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <h5>Total Amount BTC</h5>
+                                <div class="text-end">
+                                    <h5 class="text-warning">{{amountBTC}} BTC</h5>
+                                </div>
+                            </li>
+
+                        </ul>
+                        <form class="text-center m-3">
+                            <a class="btn btn-warning btn-lg"
+                                href="/make-withdraw?amountBTC={{amountBTC}}&amountUSD={{amountUSD}}">
+                                Request Withdrawal
+                                <i class="fa fa-arrow-right"></i>
+                            </a>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -1,0 +1,131 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> dashboard_navigation }}
+                    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Important Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="important-info">
+                                    <ul>
+                                        <li>
+                                            <i class="mdi mdi-checkbox-blank-circle"></i>
+                                            All investment Plans run for a total of 30days -90days after which your capital will be returned to you.
+                                        </li>
+                                        <li>
+                                            <i class="mdi mdi-checkbox-blank-circle"></i>
+                                            You can withdraw your daily investments profits as long as they are up to the minimum withdrawable.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Confirm Your Investment</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8">
+                                        <div class="col-xl-9 col-lg-9 col-md-12">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped" style="border: 1px solid #ccc;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td><span class="text-primary">You are Investing</span></td>
+                                                            <td><span class="text-primary">${{amount}} USD</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span class="text-primary">Selected Investment Plan</span></td>
+                                                            <td><span class="text-primary">{{planDetails}}</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span class="text-warning">Daily Profits</span></td>
+                                                            <td><span class="text-warning">${{daily}} USD</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Monthly Profits</td>
+                                                            <td>${{monthly}} USD</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Total Payout</td>
+                                                            <td>${{total}} USD</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Plan Duration</td>
+                                                            <td>{{days}} Days</td>
+                                                        </tr>
+                                                        
+                                                        
+                                                        
+                                                    </tbody>
+                                                </table>
+                                                <form class="text-right" action="/create-investment" method="post">
+                                                    <input type="hidden" name="amount" value="{{amount}}">
+                                                    <input type="hidden" name="plan" value="{{plan}}">
+                                                    <input class="btn btn-primary m-2" type="submit" value="Invest Now">
+                                                </form>
+                                            </div>
+                                
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+        {{> dashboard_footer}}
+    </div>
+</body>
+<script>
+    usdInput = document.querySelector('.amount-usd');
+    btcInput = document.querySelector('.amount-btc');
+
+</script>

@@ -1,0 +1,375 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> admin_navigation }}
+
+                    <div class="col-12">
+                        {{#if msg}}
+                            <div class="alert alert-warning alert-dismissible" role="alert" style="margin: 10px;">
+                                {{msg}}
+                            </div>
+                        {{/if}}
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="card profile_card">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="media-body user-info">
+                                        <span>User Profile For</span>
+                                        <h2 class="mb-2 text-dark text-bold">{{userProfile.firstname}} {{userProfile.lastname}}</h2>
+                                        <p class="mb-1"> <span><i class="fa fa-phone mr-2 text-primary"></i></span>
+                                         {{userProfile.phone}}
+                                         </p>
+                                        <p class="mb-1"> <span><i class="fa fa-envelope mr-2 text-primary"></i></span>
+                                            {{userProfile.email}}
+                                        </p>
+                                        <p class="mb-1"> <span><i class="fa fa-bitcoin mr-2 text-primary"></i></span>
+                                            {{userProfile.btcwallet}}
+                                        </p>
+                                        <p class="mb-1"> <span><i class="fa fa-tag mr-2 text-primary"></i></span>
+                                            {{userProfile._id}} (Account ID)
+                                        </p>
+                                        <p class="mb-1"> <span><i class="fa fa-lock mr-2 text-primary"></i></span>
+                                            {{userProfile.status}} (Account Status/Type)
+                                        </p>
+                                        <p class="mb-1"> <span><i class="fa fa-calendar mr-2 text-primary"></i></span>
+                                            {{date userProfile.date 'DD/MM/YYYY'}} (Date Joined)
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <form class="" action="/admin/user/set-status" method="post">
+                                        <div class="form-group col-md-12 form-inline">
+                                            <input type="text" name="id" value="{{userProfile._id}}" hidden>
+                                            <select class="form-control" name="status">
+                                                <option value="normal">Normal</option>
+                                                <option value="admin">Admin</option>
+                                                <option value="blocked">Blocked</option>
+                                                <option value="suspended">Suspended</option>
+                                                <option value="agent">Agent</option>
+                                                <option value="super-agent">Super Agent</option>
+                                            </select>
+                                            <button class="btn btn-danger" type="submit">
+                                                <i class="fa fa-lock"></i>
+                                                Set Account Status
+                                            </button>
+                                            <a class="btn btn-primary ml-2" href="/admin/mailing?mail={{userProfile.email}}">
+                                                <i class="fa fa-envelope"></i>
+                                                Email This User
+                                            </a>
+                                        </div>
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body">
+                                    <div class="amount-card">
+                                        <span class="text-success">Total Investment Capital</span>
+                                        <h1>${{userProfile.balance.nonWithdrawable}}</h1>
+                                    </div>
+
+                                    <div class="amount-card">
+                                        <span class="text-warning">Total Withdrawable</span>
+                                        <h1>${{userProfile.balance.withdrawable}}</h1>
+                                    </div>
+                                </div>
+
+                                <form action="/admin/user/set-balance" method="POST">
+                                <input type="text" name="id" value="{{userProfile._id}}" hidden>
+                                    <div class="form-row form-inline">
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mr-sm-2">Edit Investment Capital</label>
+                                            <input type="text" class="form-control" value="{{ userProfile.balance.nonWithdrawable}}" required name="capital">
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mr-sm-2">Edit Total Withdrawable</label>
+                                            <input type="text" class="form-control" value="{{ userProfile.balance.withdrawable}}" required name="withdrawable">
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-danger waves-effect px-4">Save Balance</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Change Users Password</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="/admin/user/set-pwd" method="POST">
+                                <input type="text" name="id" value="{{userProfile._id}}" hidden>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mr-sm-2">New Password</label>
+                                            <input type="password" class="form-control" placeholder="**********" required name="pwd">
+                                        </div>
+                                        <div class="form-group col-md-6 col-sm-12">
+                                            <label class="mr-sm-2">Confirm New Password</label>
+                                            <input type="password" class="form-control" placeholder="**********" required name="pwd2">
+                                        </div>
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-danger waves-effect px-4">Change Password</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Edit Users Personal Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="/admin/user/set-details" method="POST">
+                                <input type="text" name="id" value="{{userProfile._id}}" hidden>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>First Name</label>
+                                                <input type="text" class="form-control" value="{{userProfile.firstname}}" name="firstname" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Last Name</label>
+                                                <input type="text" class="form-control" value="{{userProfile.lastname}}" name="lastname" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-md-4">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Email Address</label>
+                                                <input type="email" class="form-control" value="{{userProfile.email}}" name="email" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>BTC Wallet Address</label>
+                                                <input type="text" class="form-control" value="{{userProfile.btcwallet}}" name="btcwallet" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-md-4">
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Nationality</label>
+                                                <input type="text" class="form-control" value="{{userProfile.nationality}}" name="nationality" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Phone Number</label>
+                                                <input type="number" class="form-control" value="{{userProfile.phone}}" name="phone" required>
+                                            </div>
+                                        </div> 
+                                        <div class="row mt-md-4">
+                                            <div class="col-11 alert alert-danger alert-dismissible" role="alert" style="margin: 10px;">
+                                                Please Be Very Careful When Editing the Details Below as They can Cause Problems if not Properly Edited
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Email Verified? (true/false)</label>
+                                                <input type="text" class="form-control" value="{{userProfile.verified}}" name="verified" required>
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Account Verify Code</label>
+                                                <input type="text" class="form-control" value="{{userProfile.verifyCode}}" name="verifyCode">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Account Password Reset Pin</label>
+                                                <input type="text" class="form-control" value="{{userProfile.resetPin}}" name="resetPin">
+                                            </div>
+                                            <div class="col-md-6 col-sm-12">
+                                                <label>Referred By</label>
+                                                <input type="text" class="form-control" value="{{userProfile.referredBy}}" name="referredBy">
+                                            </div>
+
+                                            <div class="col-12 mt-4">
+                                                <button type="submit" class="btn btn-danger waves-effect px-4">Save User Details</button>
+                                            </div>
+                                        </div>                                   
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">User's Deposit History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Transaction ID</th>
+                                                    <th>Date</th>
+                                                    <th>Amount USD</th>
+                                                    <th>Amount BTC</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach deposits}}
+                                                    <tr>
+                                                        <td>{{ txn_id }}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        <td>${{amountUSD}} USD</td>
+                                                        <td>{{amountBTC}} BTC</td>
+                                                        <td>{{status_text}}</td>
+                                                    </tr>
+                                                {{/forEach}}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">User's Investment History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Investment ID</th>
+                                                    <th>Amount</th>
+                                                    <th>Daily Profits</th>
+                                                    <th>Total Profit</th>
+                                                    <th>Plan</th>
+                                                    <th>Status</th>
+                                                    <th>Active Days</th>
+                                                    <th>Date Created</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach investments}}
+                                                    <tr>
+                                                        <td>{{_id}}</td>
+                                                        <td>${{amount}} USD</td>
+                                                        <td>${{daily}} USD</td>
+                                                        <td>${{monthly}} USD</td>
+                                                        <td>{{#eq "basic" plan}} Basic Plan {{else}} Premium Plan {{/eq}}</td>
+                                                        <td>{{status}}</td>
+                                                        <td>{{days}}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                    </tr>
+                                                {{/forEach}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">User's Withdrawal History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>User</th>
+                                                    <th>Amount BTC</th>
+                                                    <th>Amount USD</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach withdrawals}}
+                                                    <tr>
+                                                        <td>{{_id}}</td>
+                                                        <td>{{user}}</td>
+                                                        <td>{{amountBTC}} BTC</td>
+                                                        <td>${{amountUSD}} USD</td>
+                                                        <td>{{status}}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        
+                                                    </tr>
+                                                {{/forEach}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Users Referral History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Amount</th>
+                                                    <th>Plan</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th>Invited User</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach referrals}}
+                                                    <tr>
+                                                        <td>${{amount}} USD</td>
+                                                        <td>{{plan}}</td>
+                                                        <td>{{status}}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        <td>{{invitedUser}}</td>
+                                                    </tr>
+                                                {{/forEach}}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+
+        {{> dashboard_footer}}
+    </div>
+</body>

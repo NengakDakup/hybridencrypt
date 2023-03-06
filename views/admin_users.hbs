@@ -1,0 +1,109 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> admin_navigation }}
+
+                    {{#if msg}}
+                        <div class="alert alert-warning" role="alert" style="margin: 10px;">
+                            {{msg}}
+                        </div>
+                    {{/if}}
+                    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">All Users</h4>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <form action="/admin/users" method="post" class="float-right">
+                                                <div class="form-group form-inline">
+                                                    <select name="type" class="form-control" required="true">
+                                                        <option data-display="Email" value="email">Email Address</option>
+                                                        <option data-display="User ID" value="id">User ID</option>
+                                                        <option data-display="Firstname" value="firstname">Firstname</option>
+                                                        <option data-display="Lastname" value="lastname">Lastname</option>
+                                                    </select>
+                                                    <input class="form-control" type="text" placeholder="Enter Details" name="value" required="true"/>
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                        Search
+                                                    </button>
+                                                </div>
+                                            </form>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>User ID</th>
+                                                    <th>Withdrawable</th>
+                                                    <th>Investment Capital</th>
+                                                    <th>Firstname</th>
+                                                    <th>Lastname</th>
+                                                    <th>Email</th>
+                                                    <th>BTC Wallet</th>
+                                                    <th>Nationality</th>
+                                                    <th>Phone</th>
+                                                    <th>Date Joined</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach users}}
+                                                    <tr>
+                                                        <td>{{_id}}</td>
+                                                        <td>${{balance.withdrawable}} USD</td>
+                                                        <td>${{balance.nonWithdrawable}} USD</td>
+                                                        <td>{{firstname}} </td>
+                                                        <td>{{lastname}}</td>
+                                                        <td>{{email}}</td>
+                                                        <td>{{btcwallet}}</td>
+                                                        <td>{{nationality}}</td>
+                                                        <td>{{phone}}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        <td>
+                                                            <a href="/admin/user/{{_id}}" class="btn btn-primary">
+                                                                <i class="fa fa-chevron-right"></i>
+                                                                View User
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {{/forEach}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+       {{> dashboard_footer}}
+    </div>
+</body>

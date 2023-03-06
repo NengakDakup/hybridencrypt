@@ -1,0 +1,66 @@
+{{> header }}
+
+<div class="contact-form section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-7">
+                <div class="section-title text-center">
+                    <span>Contact Us</span>
+                    <h2>Let us hear from you directly!</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-xl-4 col-md-4 col-sm-12">
+                <div class="info-list">
+                    <h4 class="mb-3">Address</h4>
+                    <ul>
+                        <li><i class="fa fa-map-marker"></i> 324 Southend Road, Wickford, Essex SS11 8QS</li>
+                        <li><i class="fa fa-envelope"></i> support@mondex.biz</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-8 col-md-8 col-sm-12">
+                {{#if msg}} 
+                    {{> alert}}
+                {{/if}}
+                <form method="post" name="myform" class="contact_validate" action="/contact">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Full name
+                                </label>
+                                <input type="text" class="form-control" id="contactName" placeholder="Full name" name="fullname" required>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Email
+                                </label>
+                                <input type="email" class="form-control" name="email" placeholder="hello@domain.com" required>
+
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <textarea class="form-control p-3" name="message" rows="5" placeholder="Tell us what we can help you with!" required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning px-4 py-2">
+                        Send message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{> getting_started}}
+
+{{> footer}}

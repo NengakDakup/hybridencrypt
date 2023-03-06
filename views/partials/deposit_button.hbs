@@ -1,0 +1,19 @@
+{{#eq status 100}}
+    <td>
+        <button class="btn btn-info disable btn-disabled" disabled>
+            <i class="mdi mdi-approval"></i>
+            Deposit Approved
+        </button>
+    </td>
+    {{else}}
+    <td>
+        <form action="/admin/confirm-deposit" method="POST">
+            <input type="text" value="{{txn_id}}" name="txn_id" hidden required/>
+            <button class="btn btn-info">
+                <i class="mdi mdi-approval"></i>
+                Approve Deposit
+            </button>
+        </form>
+    </td>
+    
+{{/eq}}

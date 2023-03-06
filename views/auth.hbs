@@ -1,0 +1,133 @@
+
+
+
+    <div class="container">
+        <div class="tab-custom">
+            <div class="row">
+                <div class="col-sm-12 text-center" style="margin: 20px;">
+                    <a href="/">
+                        <img src="/images/logo.png">
+                    </a>
+                </div>
+                <div class="col-md-4 col-md-offset-4  col-sm-6 col-sm-offset-3">
+                    <ul class="nav nav-tabs ucap" id="loginreg-form">
+                        <li class=""><a href="#tab1" data-toggle="tab" aria-expanded="false">Log In</a></li>
+                        <li class="active"><a href="#tab2" data-toggle="tab" aria-expanded="true">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="gaps size-2x"></div>
+            <!-- Tab panes -->
+            <div class="tab-content no-pd">
+                <div class="tab-pane fade" id="tab1">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                            <h3 class="heading-lead center">Login to Your Dashboard</h3>
+                            <form class="form-signup" action="/login" method="post">
+                                {{#if msg}} 
+                                    {{> alert}}
+                                {{/if}}
+                                <div class="form-results"></div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        <input name="signup-email" type="email" placeholder="Email *" class="form-control required email" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        <input name="signup-passkey" type="password" placeholder="Password *" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-alt">Log In</button>
+                                <span class="gaps"></span>
+                                <p class="small">Not registered? <a class="switch-tab" data-tabnav="loginreg-form" href="#tab2" data-toggle="tab" aria-expanded="true">Register here</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade active in" id="tab2">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                            <h3 class="heading-lead center">Create An Account</h3>
+                            <h5 class="center">To Get Started Create An Account</h5>
+                            <form class="form-signup" action="/signup" method="post">
+                                {{#if msg}} 
+                                    {{> alert}}
+                                {{/if}}
+                                <div class="form-results"></div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        {{#if errors.fullname}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.fullname}}</p>
+                                        {{/if}}
+                                        <input name="fullname" type="text" value="{{inputs.fullname}}" placeholder="Fullname *" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        {{#if errors.email}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.email}}</p>
+                                        {{/if}}
+                                        <input name="email" type="email" value="{{inputs.email}}" placeholder="Email *" class="form-control required email" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        {{#if errors.wallet}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.wallet}}</p>
+                                        {{/if}}
+                                        <input name="wallet" type="text" value="{{inputs.wallet}}" placeholder="Bitcoin Wallet Address *" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        {{#if errors.phone}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.phone}}</p>
+                                        {{/if}}
+                                        <input name="phone" type="number" value="{{inputs.phone}}"  placeholder="Phone Number *" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        {{#if errors.nationality}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.nationality}}</p>
+                                        {{/if}}
+                                        <select name="nationality" class="form-control" required="true">
+                                            <option data-display="Select your country" value="select">Select Your Country</option>
+                                            <script>
+                                                document.write(countryHTML);
+                                            </script>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field form-m-bttm">
+                                        <input name="referredBy" type="text" value="{{inputs.referredBy}}" placeholder="Referral Code (Leave empty if unknown)" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        {{#if errors.password}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.password}}</p>
+                                        {{/if}}
+                                        <input name="password" type="password" placeholder="Password *" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="form-field">
+                                        {{#if errors.password2}}
+                                            <p class="text-danger font-weight-bold small mb-1">{{errors.password2}}</p>
+                                        {{/if}}
+                                        <input name="password2" type="password" placeholder="Confirm Password *" class="form-control required" aria-required="true" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-alt">Signup</button>
+                                <span class="gaps"></span>
+                                <p class="small">Already registered? <a class="switch-tab" data-tabnav="loginreg-form" href="#tab1" data-toggle="tab" aria-expanded="false">Login here</a></p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>	

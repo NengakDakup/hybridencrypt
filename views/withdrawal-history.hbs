@@ -1,0 +1,66 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> dashboard_navigation }}
+                    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Withdrawal History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>User</th>
+                                                    <th>Amount BTC</th>
+                                                    <th>Amount USD</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach withdrawals}}
+                                                    <tr>
+                                                        <td>{{_id}}</td>
+                                                        <td>{{user}}</td>
+                                                        <td>{{amountBTC}} BTC</td>
+                                                        <td>${{amountUSD}} USD</td>
+                                                        <td>{{status}}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        
+                                                    </tr>
+                                                {{/forEach}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+       {{> dashboard_footer}}
+    </div>
+</body>

@@ -1,0 +1,88 @@
+<body>
+
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+                    {{> admin_navigation }}
+
+                    {{#if msg}}
+                        <div class="alert alert-warning" role="alert" style="margin: 10px;">
+                            {{msg}}
+                        </div>
+                    {{/if}}
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">All Deposits</h4>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <form action="/admin/deposits" method="post">
+                                                <div class="form-group form-inline float-right">
+                                                    <input class="form-control" type="text" placeholder="Enter Transaction ID" name="id" required/>
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fa fa-search"></i>
+                                                        Search
+                                                    </button>
+                                                </div>
+                                            </form>   
+                                        </div>
+                                    </div>
+                                </div>    
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Transaction ID</th>
+                                                    <th>Date</th>
+                                                    <th>Amount USD</th>
+                                                    <th>Amount BTC</th>
+                                                    <th>Status</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach deposits}}
+                                                    <tr>
+                                                        <td>{{ txn_id }}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                        <td>${{amountUSD}} USD</td>
+                                                        <td>{{amountBTC}} BTC</td>
+                                                        <td>{{status_text}}</td>
+                                                        {{> deposit_button}}
+                                                    </tr>
+                                                {{/forEach}}
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+        {{> dashboard_footer}}
+    </div>
+</body>

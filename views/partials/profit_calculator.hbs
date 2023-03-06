@@ -1,0 +1,52 @@
+<div class="price-grid section-padding bg-dark mt-5">
+    
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="section-title">
+                    <h2 class="text-white">Profit Calculator</h2>
+                    <h3 class="text-center text-white">Calculate how much you can make if you invest with us</h3>
+                </div>
+            </div>
+        </div>
+            
+            
+        <div class="row justify-content-center pricing-box">
+            <div class="col-md-6 intro-form-exchange">
+                <form method="post" name="myform" class="currency_validate trade-form row g-3">
+                    <div class="col-12">
+                        <label class="form-label">Enter Amount To Invest</label>
+                        <div class="input-group">
+                            <select class="form-control" name="method">
+                                <option value="usd">USD</option>
+                                <option value="btc">BTC</option>
+                            </select>
+                            <input type="text" name="currency_amount" class="form-control" placeholder="1000">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label">Select Investment Plan</label>
+                        <div class="input-group">
+                            <select class="form-control" name="method">
+                                <option value="starter">STARTER</option>
+                                <option value="pro">PRO</option>
+                            </select>
+                            <button type="button" class="btn btn-warning ">
+                                Calculate Profits
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+                <div class="alert alert-warning m-2 invest-result">
+                    <p><strong>Amount To Invest:</strong> 100BTC</p>
+                    <p><strong>Investment Plan:</strong> Basic</p>
+                    <p><strong>Daily Profits:</strong> 100</p>
+                    <p><strong>Total Profit:</strong> 1000</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

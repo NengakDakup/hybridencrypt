@@ -1,0 +1,104 @@
+<body>
+
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> admin_navigation }}
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Registered Users</h4>
+                                    <h1>{{ stats.registeredUsers }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Active Users</h4>
+                                    <h1>{{ stats.activeUsers }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Inactive Users</h4>
+                                    <h1>{{ stats.inactiveUsers }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Total Deposit</h4>
+                                    <h1>${{ stats.totalDeposit }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Total Withdrawal</h4>
+                                    <h1>${{ stats.totalWithdrawal }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Active Investments</h4>
+                                    <h1>{{ stats.activeInvestments }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                        <div class="card acc_balance">
+                            <div class="card-body">
+                                <div class="inner-card-body d-block text-center">
+                                    <h4 class="font-weight-bold">Completed Investments</h4>
+                                    <h1>{{stats.completedInvestments}}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+        {{> dashboard_footer}}
+    </div>
+</body>

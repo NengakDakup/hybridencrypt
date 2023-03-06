@@ -1,0 +1,128 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> dashboard_navigation }}
+                    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Important Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="important-info">
+                                    <ul>
+                                        <li>
+                                            <i class="mdi mdi-checkbox-blank-circle"></i>
+                                            You can have multiple active investment running at a time.
+                                        </li>
+                                        <li>
+                                            <i class="mdi mdi-checkbox-blank-circle"></i>
+                                            The minimum Investment amount is $30 USD for Basic plan, and $1000 for Premium plan.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Enter Investment Details</h4>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row justify-content-center">
+                                    <div class="col-xl-8">
+                                        <form action="/confirm-investment" method="POST" class="py-5">
+
+                                            {{#if msg}}
+                                                <div class="alert alert-warning" role="alert" style="margin: 10px;">
+                                                    {{msg}}
+                                                </div>
+                                            {{/if}}
+
+                                            <div class="form-group row align-items-center">
+                                                <div class="col-sm-6">
+                                                    <label for="inputEmail3" class="col-form-label">
+                                                        Current Account Balance
+                                                        <br>
+                                                        <small>
+                                                            Total Amount of money in your account
+                                                        </small>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h4 class="">${{user.balance.withdrawable}} USD</h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <div class="col-sm-6">
+                                                    <label for="inputEmail3" class="col-form-label">
+                                                        Selected Investment Plan 
+                                                        <br>
+                                                        <small>
+                                                            The Plan That you want to invest in
+                                                        </small>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <h4 class="">{{planDetails}}</h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row align-items-center">
+                                                <div class="col-sm-4">
+                                                    <label for="inputEmail3" class="col-form-label">Investment Amount USD
+                                                        <br>
+                                                        <small>Amount to be Invested in Dollars</small>
+                                                        <br>
+                                                        <small><strong class="text-danger">Minimum deposit is ${{minimum}} for selected plan</strong></small>
+                                                    </label>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <label class="input-group-text  bg-primary"><i class="mdi mdi-currency-usd fs-18 text-white"></i></label>
+                                                        </div>
+                                                        <input type="number" min="{{minimum}}" class="form-control text-right amount-usd" placeholder="{{minimum}}" name="amount" required="true">
+                                                        <input type="text" name="plan" value="{{plan}}" hidden="true" required="true" />
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                            <div class="text-right">
+                                                <button type="submit" class="btn btn-primary">Continue</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+        {{> dashboard_footer}}
+    </div>
+</body>

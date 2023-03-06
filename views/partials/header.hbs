@@ -1,0 +1,62 @@
+<div class="header landing bg-dark light">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="navigation">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <div class="brand-logo">
+                            <a href="/">
+                                <img src="/images/logo.png" alt="" class="logo-primary">
+                                <img src="/images/logow.png" alt="" class="logo-white">
+                            </a>
+                        </div>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        
+                        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                            <ul class="navbar-nav ms-auto">
+
+                                <li class="nav-item active">
+                                    <a class="nav-link {{#compare 'home' '===' route}}active{{/compare}}" href="/">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{#compare 'about' '===' route}}active{{/compare}}" href="/about">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{#compare 'offers' '===' route}}active{{/compare}}" href="/offers">Offers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{#compare 'faq' '===' route}}active{{/compare}}" href="/faq">FAQ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {{#compare 'contact' '===' route}}active{{/compare}}" href="/contact">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="signin-btn">
+                            {{!-- <a class="btn btn-warning" href="/register">Register</a> --}}
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                                    <img class="img-fluid rounded" style="width: 35px;" src="/images/user.png" />
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="/profile">John Dalton</a>
+                                    <a class="dropdown-item" href="/dashboard">Dashboard</a>
+                                    <a class="dropdown-item" href="/investments">Investments</a>
+                                    <a class="dropdown-item" href="/logout">Log Out</a>
+                                </div>
+                            </li>
+                            
+
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

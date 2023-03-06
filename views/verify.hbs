@@ -1,0 +1,33 @@
+
+<div class="authincation section-padding">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-xl-5 col-md-6">
+                <div class="mini-logo text-center my-5">
+                    <a href="/"><img src="/images/logo.png" alt=""></a>
+                </div>
+                <div class="auth-form card">
+                    <div class="card-header justify-content-center">
+                        <h4 class="card-title">Verify Email</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="ml-2">Please Verify your account</p>
+                        <p class="ml-2">A Link has been sent to <strong>{{email}}</strong></p>
+                        
+                        <div class="new-account mt-3">
+                            <p class="mb-1">Didn't get it? </p>
+                            <form action="/verify" method="POST">
+                                <input type="email" name="email" value="{{email}}" hidden="true" />
+                                <input type="submit" hidden="true" id="send"/>
+                                <label for="send">
+                                    <a class="text-primary" style="cursor: pointer;">Resend </a>
+                                </label>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

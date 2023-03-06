@@ -1,0 +1,399 @@
+        {{> dashboard_header }}
+
+        {{> dashboard_navigation }}
+        
+        <div class="content-body">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="page-title-content">
+                            <p>Welcome Back,
+                                <strong> {{user.fullname}}</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-12">
+                    {{#if msg}}
+                        {{> alert}}
+                    {{/if}}
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-3">
+                        <div class="row">
+
+                            <div class="col-xxl-12 col-xl-12 col-lg-6">
+                                <div class="card welcome-profile" style="background-color: #ffab00!important;">
+                                    <div class="card-body">
+                                        <img src="images/profile/2.png" alt="">
+                                        <h4>Hi, {{user.fullname}}</h4>
+                                        <p>Your Journey to financial freedom starts from here. Deposit some funds to your wallet and invest in any of our plans. Withdraw your money anytime you want.
+                                        </p>
+
+                                        <ul>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="verified"><i class="fa fa-envelope"></i></span>
+                                                    {{user.email}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="not-verified"><i class="fa fa-phone"></i></span>
+                                                    {{user.phone}}
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="not-verified"><i class="fa fa-lock"></i></span>
+                                                    {{user.status}}
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xxl-12 col-xl-12 col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="invite-content">
+                                            <h4>Invite a friend and get 5% Bonus</h4>
+                                            <p>You will receive 5% when they：
+                                                <br>
+                                                1. Deposit <br> 2. Invest in a Plan <br>
+                                                {{!-- <a href="#">Learn more</a> --}}
+
+                                            </p>
+
+                                            <div class="copy-link">
+                                                <form action="#">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control referr" value="{{server}}register?refer={{user.referralCode}}">
+                                                        <span class="input-group-text" onclick="copyURL()" style="cursor: pointer;">Copy</span>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="social-share-link">
+                                                <a href="#"><span><i class="icofont-facebook"></i></span></a>
+                                                <a href="#"><span><i class="icofont-twitter"></i></span></a>
+                                                <a href="#"><span><i class="icofont-whatsapp"></i></span></a>
+                                                <a href="#"><span><i class="icofont-telegram"></i></span></a>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-xl-9">
+                        <div class="row">
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                <div class="wallet-widget card">
+                                    <h5>Estimated Balance</h5>
+                                    <h2><span class="text-primary">{{sum user.balance.withdrawable user.balance.nonWithdrawable user.balance.pending}}</span> <sub>USD</sub></h2>
+                                    <p>= 0.000000 BTC</p>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                <div class="wallet-widget card">
+                                    <h5>Available Balance</h5>
+                                    <h2><span class="text-success">{{user.balance.withdrawable}}</span> <sub>USD</sub></h2>
+                                    <p>= 0.000000 BTC</p>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                <div class="wallet-widget card">
+                                    <h5>Pending Balance</h5>
+                                    <h2><span class="text-warning">{{user.balance.pending}}</span> <sub>USD</sub></h2>
+                                    <p>= 0.000000 BTC</p>
+                                </div>
+                            </div>
+                            <div class="col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-6">
+                                <div class="wallet-widget card">
+                                    <h5>Locked Balance</h5>
+                                    <h2><span class="text-danger">{{user.balance.nonWithdrawable}}</span> <sub>USD</sub></h2>
+                                    <p>= 0.000000 BTC</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xxl-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Your Investments </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+
+                                            {{#forEach activeInvestments}}
+                                                <div class="col-md-4 col-sm-6">
+                                                    <div class="card welcome-profile">
+                                                        <div class="card-body">
+                                                            <h1 class="text-white">{{amount}} $</h1>
+                                                            <p><i class="fa fa-calendar"></i> {{date date "DD/MM/YYYY"}}</p>
+
+                                                            <ul>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <span class="verified"><i class="fa fa-clock"></i></span>
+                                                                        {{days}} Days Active
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <span class="not-verified"><i class="fa fa-wallet"></i></span>
+                                                                        ${{totalProfits}} Paid Out
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <span class="not-verified"><i class="fa fa-star"></i></span>
+                                                                        Premium Plan
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-chevron-right mr-1"></i> <u>View Details</u>
+                                                                        
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            {{/forEach}}
+                                            
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="card welcome-profile">
+                                                    <div class="card-body">
+                                                        <h1 class="text-white">500 $</h1>
+                                                        <p><i class="fa fa-calendar"></i> 30th Febuary, 2019</p>
+
+                                                        <ul>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="verified"><i class="fa fa-clock"></i></span>
+                                                                    31 Days Active
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="not-verified"><i class="fa fa-wallet"></i></span>
+                                                                    $200 Paid Out
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="not-verified"><i class="fa fa-star"></i></span>
+                                                                    Premium Plan
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fa fa-chevron-right mr-1"></i> <u>View Details</u>
+                                                                    
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="card welcome-profile">
+                                                    <div class="card-body">
+                                                        <h1 class="text-white">500 $</h1>
+                                                        <p><i class="fa fa-calendar"></i> 30th Febuary, 2019</p>
+
+                                                        <ul>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="verified"><i class="fa fa-clock"></i></span>
+                                                                    31 Days Active
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="not-verified"><i class="fa fa-wallet"></i></span>
+                                                                    $200 Paid Out
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="not-verified"><i class="fa fa-star"></i></span>
+                                                                    Premium Plan
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fa fa-chevron-right mr-1"></i> <u>View Details</u>
+                                                                    
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4 col-sm-6">
+                                                <div class="card welcome-profile">
+                                                    <div class="card-body">
+                                                        <h1 class="text-white">500 $</h1>
+                                                        <p><i class="fa fa-calendar"></i> 30th Febuary, 2019</p>
+
+                                                        <ul>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="verified"><i class="fa fa-clock"></i></span>
+                                                                    31 Days Active
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="not-verified"><i class="fa fa-wallet"></i></span>
+                                                                    $200 Paid Out
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <span class="not-verified"><i class="fa fa-star"></i></span>
+                                                                    Premium Plan
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a href="#">
+                                                                    <i class="fa fa-chevron-right mr-1"></i> <u>View Details</u>
+                                                                    
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            
+
+                                        </div>
+
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Wallet Activity</h4>
+
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive transaction-table">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ledger ID</th>
+                                                    <th>Date</th>
+                                                    <th>Type</th>
+                                                    <th>Currency</th>
+                                                    <th>Amount</th>
+                                                    <th>Fee</th>
+                                                    <th>Balance</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td data-th="Ledger ID"><span class="bt-content">523640</span></td>
+                                                    <td data-th="Date"><span class="bt-content">January 15</span></td>
+                                                    <td data-th="Type"><span class="bt-content">
+                                                        <span class="danger-arrow"><i class="icofont-arrow-down"></i>
+                                                            Sell</span>
+                                                    </span></td>
+                                                    <td class="coin-name" data-th="Currency"><span class="bt-content">
+                                                        <i class="cc BTC"></i> Bitcoin
+                                                    </span></td>
+                                                    <td class="text-danger" data-th="Amount"><span class="bt-content">-0.000242 BTC</span></td>
+                                                    <td data-th="Fee"><span class="bt-content">0.02%</span></td>
+                                                    <td data-th="Balance"><span class="bt-content"><strong>0.25484 BTC</strong></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-th="Ledger ID"><span class="bt-content">523640</span></td>
+                                                    <td data-th="Date"><span class="bt-content">January 15</span></td>
+                                                    <td data-th="Type"><span class="bt-content"><span class="success-arrow"><i class="icofont-arrow-up"></i>Buy</span>
+                                                    </span></td>
+                                                    <td class="coin-name" data-th="Currency"><span class="bt-content">
+                                                        <i class="cc LTC"></i> Litecoin
+                                                    </span></td>
+                                                    <td class="text-success" data-th="Amount"><span class="bt-content">-0.000242 BTC</span></td>
+                                                    <td data-th="Fee"><span class="bt-content">0.02%</span></td>
+                                                    <td data-th="Balance"><span class="bt-content"><strong> 0.25484 LTC</strong></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-th="Ledger ID"><span class="bt-content">523640</span></td>
+                                                    <td data-th="Date"><span class="bt-content">January 15</span></td>
+                                                    <td data-th="Type"><span class="bt-content"><span class="success-arrow"><i class="icofont-arrow-up"></i>Buy</span>
+                                                    </span></td>
+                                                    <td class="coin-name" data-th="Currency"><span class="bt-content">
+                                                        <i class="cc XRP"></i> Ripple
+                                                    </span></td>
+                                                    <td class="text-success" data-th="Amount"><span class="bt-content">-0.000242 BTC</span></td>
+                                                    <td data-th="Fee"><span class="bt-content">0.02%</span></td>
+                                                    <td data-th="Balance"><span class="bt-content"><strong> 0.25484 LTC</strong></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-th="Ledger ID"><span class="bt-content">523640</span></td>
+                                                    <td data-th="Date"><span class="bt-content">January 15</span></td>
+                                                    <td data-th="Type"><span class="bt-content"><span class="success-arrow"><i class="icofont-arrow-up"></i>Buy</span>
+                                                    </span></td>
+                                                    <td class="coin-name" data-th="Currency"><span class="bt-content">
+                                                        <i class="cc DASH"></i> Dash
+                                                    </span></td>
+                                                    <td class="text-success" data-th="Amount"><span class="bt-content">-0.000242 BTC</span></td>
+                                                    <td data-th="Fee"><span class="bt-content">0.02%</span></td>
+                                                    <td data-th="Balance"><span class="bt-content"><strong> 0.25484 LTC</strong></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td data-th="Ledger ID"><span class="bt-content">523640</span></td>
+                                                    <td data-th="Date"><span class="bt-content">January 15</span></td>
+                                                    <td data-th="Type"><span class="bt-content"><span class="success-arrow"><i class="icofont-arrow-up"></i>Buy</span>
+                                                    </span></td>
+                                                    <td class="coin-name" data-th="Currency"><span class="bt-content">
+                                                        <i class="cc DASH"></i> Dash
+                                                    </span></td>
+                                                    <td class="text-success" data-th="Amount"><span class="bt-content">-0.000242 BTC</span></td>
+                                                    <td data-th="Fee"><span class="bt-content">0.02%</span></td>
+                                                    <td data-th="Balance"><span class="bt-content"><strong> 0.25484 LTC</strong></span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                
+                
+                
+                
+               
+            </div>
+        </div>
+    <script>
+        function copyURL(){
+            const input = document.querySelector('.referr');
+
+            input.select();
+            document.execCommand("copy");
+        }
+    </script>
+</body>

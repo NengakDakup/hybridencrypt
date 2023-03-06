@@ -1,0 +1,99 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> admin_navigation }}
+
+                    {{#if msg}}
+                        <div class="alert alert-warning" role="alert" style="margin: 10px;">
+                            {{msg}}
+                        </div>
+                    {{/if}}
+
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <h4 class="card-title">Email Broadcast</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                               <div class="col-sm-12 col-md-8 col-lg-9">
+                                    <div class="row page-content">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="inner-box">
+                                            <div class="dashboard-wrapper">
+                                                <form action="/admin/mailing" method="POST">
+
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Select User Category</label>
+                                                        <select class="form-control" name="category">
+                                                            <option value="single">Single User</option>
+                                                            <option value="active">Active Users</option>
+                                                            <option value="inactive">Inactive Users</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">User Email (if single user)</label>
+                                                        <input class="form-control input-md post_title" name="single_mail" placeholder="Email Address" type="email" value="{{email}}">
+                                                    </div>
+                                                    <div class="form-group mb-3">
+                                                        <label class="control-label">Email Title</label>
+                                                        <input class="form-control input-md post_title" name="title" placeholder="Title" type="text" required>
+                                                    </div>
+                                                    
+                                                    <div class="form-group md-3">
+                                                        <label class="control-label">Construct Message</label>
+                                                        <textarea class="form-control" id="summernote" name="editordata" style=" height: 100px;" required placeholder="Start Typing Here"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Send Mail</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+       {{> dashboard_footer}}
+        <script src="/js/jquery-min.js"></script>
+       <script src="/js/summernote.js"></script>
+      <script>
+        $(document).ready(function() {
+    
+            $('#summernote').summernote({
+                height: 350, // set editor height
+                minHeight: null, // set minimum height of editor
+                maxHeight: null, // set maximum height of editor
+                focus: false // set focus to editable area after initializing summernote
+            });
+        });
+    </script>
+    </div>
+</body>
+
+

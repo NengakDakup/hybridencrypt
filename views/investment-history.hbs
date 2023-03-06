@@ -1,0 +1,69 @@
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        {{> dashboard_header }}
+
+        <div class="content-body">
+            <div class="container">
+                <div class="row">
+
+                    {{> dashboard_navigation }}
+                    
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Investment History</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="transaction-table">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped mb-0 table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Investment ID</th>
+                                                    <th>Amount</th>
+                                                    <th>Daily Profits</th>
+                                                    <th>Total Profit</th>
+                                                    <th>Plan</th>
+                                                    <th>Status</th>
+                                                    <th>Active Days</th>
+                                                    <th>Date Created</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {{#forEach investments}}
+                                                    <tr>
+                                                        <td>{{_id}}</td>
+                                                        <td>${{amount}} USD</td>
+                                                        <td>${{daily}} USD</td>
+                                                        <td>${{monthly}} USD</td>
+                                                        <td>{{#eq "basic" plan}} Basic Plan {{else}} Premium Plan {{/eq}}</td>
+                                                        <td>{{status}}</td>
+                                                        <td>{{days}}</td>
+                                                        <td>{{date date "DD/MM/YYYY"}}</td>
+                                                    </tr>
+                                                {{/forEach}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+
+       {{> dashboard_footer}}
+    </div>
+</body>
