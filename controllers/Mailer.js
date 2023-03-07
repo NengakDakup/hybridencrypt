@@ -35,7 +35,7 @@ async function Mailer(to, type, data){
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-            from: '"Mondex" <hello@awahinvestment.com>', // sender address
+            from: '"Hybrid Encrypt" <hello@hybridencrypt.com>', // sender address
             to: to, // list of receivers
             subject: data.title, // Subject line
             template: type, // plain text body
@@ -72,7 +72,7 @@ async function Mailer(to, type, data){
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
-            from: '"Mondex" <hello@awahinvestment.com>', // sender address
+            from: '"Hybrid Encrypt" <hello@hybridencrypt.com>', // sender address
             to: to, // list of receivers
             subject: data.title, // Subject line
             template: type, // plain text body
