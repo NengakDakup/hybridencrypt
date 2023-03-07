@@ -5,16 +5,11 @@ const router = express.Router();
 const dotenv = require('dotenv');
 dotenv.config();
 
-// load coinpayment functions
-const {getBTCRate, createDeposit} = require('../config/coinbase');
 
 
 //Models
 const User = require('../models/User');
-const Deposit = require('../models/Deposit');
-const Investment = require('../models/Investment');
-const Referral =  require('../models/Referral');
-const Wallet = require('../models/Wallet');
+
 
 // Mailer function 
 const Mailer = require('../controllers/Mailer');

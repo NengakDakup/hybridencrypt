@@ -248,28 +248,13 @@ const { server } = process.env;
 // @desc    Returns the Login Page
 // @access  public
 router.get('/login', (req, res) => {
-    const { msg, id, token } = req.query;
-    if(id && token){
-        User.findById(id)
-            .then(user => {
-                if(!user){
-                    res.redirect('/login?msg=User Account not found&msgType=danger');
-                } else if(user.verifyCode !== token){
-                    res.redirect('/login?msg=Invalid Authentication for user&msgType=danger');
-                } else {
-                    user.verified = true;
-                    user.save().then(usr => res.redirect('/login?msg=Account successfully verified. Please Login to continue&msgType=success')); 
-                }
-            })
-            .catch(err => res.redirect('/auth?login=Invalid Authentication for user&msgType=danger'))
-    } else {
-        res.render('login', {
-            title: 'Login - Mondex',
-            msg: msg,
-            type: req.query.msgType,
-            countries: countries
-        });
-    }
+    const { msg} = req.query;
+    
+    res.render('login', {
+        title: 'Login - Hybrid Encrypt',
+        msg: msg,
+        type: req.query.msgType
+    });
 });
 
 // @route   /register
@@ -278,7 +263,7 @@ router.get('/login', (req, res) => {
 router.get('/register', (req, res) => {
     const { msg, id, token } = req.query;
     res.render('register', {
-        title: 'Register - Mondex',
+        title: 'Register - Hybrid Encrypt',
         msg: msg,
         type: req.query.msgType
 
@@ -287,52 +272,12 @@ router.get('/register', (req, res) => {
 
 
 
-// @route   /verify
-// @desc    Returns the Verify Email Page
-// @access  public
-router.get('/verify', (req, res) => {
-    User.findOne({email: req.query.email})
-        .then(user => {
-            if(!user){
-                res.redirect('/login?msg=Email Address not found!');
-            } else {
-                res.render('verify', {
-                    title: 'Verify Account - Mondex',
-                    email: req.query.email
-                });
-            }
-        })
-});
-
-router.post('/verify', (req, res) => {
-    const {email} = req.body;
-    //find the user and send the mails
-    User.findOne({email: email})
-        .then(user => {
-            if(!user){
-                //redirect to login page with a message
-                res.redirect('/login?msg=Email Address not found');
-            } else {
-                // Send Email
-                if(!user.verifyCode){
-                    user.verifyCode = cryptoRandomString({length: 10, type: 'base64'});
-                    user.save().then(user => {
-                        Mailer(user.email, 'verify', {server: server, email: user.email, name: user.fullname, title: 'Welcome to Mondex', link: `${server}login?id=${user.id}&token=${user.verifyCode}`});
-                        res.redirect(`/verify?email=${email}`);
-                    })
-                }
-                
-            }
-        })
-    
-})
-
 // @route   /reset
 // @desc    Returns the Reset Password Page
 // @access  public
 router.get('/reset', (req, res) => {
     res.render('reset', {
-        title: 'Reset Password - Mondex',
+        title: 'Reset Password - Hybrid Encrypt',
         msg: req.query.msg,
         type: req.query.msgType,
     });
@@ -381,7 +326,7 @@ router.get('/reset-password', (req, res) => {
                     res.redirect('/login?msg=Invalid Authentication for user&msgType=danger');
                 } else {
                     res.render('reset-password', {
-                        title: 'Reset Password - Mondex',
+                        title: 'Reset Password - Hybrid Encrypt',
                         token: token,
                         user: user.id,
                         msg: req.query.msg,
@@ -429,54 +374,6 @@ router.post('/reset-password', (req, res) => {
     }
 })
 
-// change pword functionality from profile page
-// post - to get the new password and change it, then redirect user to login with login with new password
-router.post('/change-password', Authenticate, (req, res) => {
-    const {id, name, status} = req.user;
-    const { oldP, newP } = req.body;
-
-    if(!oldP || !newP){
-        return res.redirect('/profile?msg=Please Make Sure All Fields Are Completed&msgType=danger');
-    } else if(oldP === newP){
-        return res.redirect('/profile?msg=Old Password Cannot be the Same as the Old Password&msgType=danger');
-    }
-
-    User.findById(id)
-        .then(user => {
-            if(!user){
-                return res.redirect('/login');
-            } 
-
-            bcrypt.compare(oldP, user.password)
-                .then(isMatch => {
-                    if(isMatch){
-                        if(newP.length < 4){
-                            return res.redirect('/profile?msg=New Password Cannot Be Less Than Four Characters&msgType=danger');
-                        } else {
-
-                            bcrypt.genSalt(10, (err, salt) => {
-                                bcrypt.hash(newP, salt, (err, hash) => {
-                                    if(err) throw err;
-                                    user.password = hash;
-                                    user.save().then(user => {
-                                        res.clearCookie('token');
-                                        res.redirect('/login?msg=Password successfully changed. Please Login to continue&msgType=success')
-                                    });
-                                })
-                            })
-                        }
-                        
-                    } else {
-                        return res.redirect('/profile?msg=Current Password is Wrong. Please Logout and click on forgot password if you forgot your password!&msgType=danger');
-                    }
-                })
-        })
-
-    
-
-
-})
-
 // @route   /login
 // @desc    Validates a User Login
 // @access  public
@@ -493,7 +390,7 @@ router.post('/login', (req, res) => {
 
     if(errors.email || errors.password){
         return res.render('login', {
-            title: 'Login - Mondex',
+            title: 'Login - Hybrid Encrypt',
             inputs: {
                 email: email,
                 password: password
@@ -507,7 +404,7 @@ router.post('/login', (req, res) => {
         .then(user => {
             if(!user){
                 return res.render('login', {
-                    title: 'Login -  Mondex',
+                    title: 'Login -  Hybrid Encrypt',
                     inputs: {
                         email: email,
                         password: password
@@ -516,23 +413,13 @@ router.post('/login', (req, res) => {
                 });
             }
 
-            if(!user.verified){
-                return res.render('login', {
-                    title: 'Login - mondex',
-                    inputs: {
-                        email: email,
-                        password: password
-                    },
-                    errors: {email: 'Please verify your Account First!'}
-                });
-            }
 
             //compare passwords
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(isMatch){
                         // create a jwt payload
-                        const payload = { id: user.id, name: user.fullname, status: user.status };
+                        const payload = { id: user.id, email: user.email};
                         // Sign the Token
                         // expires in one week
                         jwt.sign(payload, process.env.JWTKey, {expiresIn: 604800}, (err, token) => {
@@ -544,7 +431,7 @@ router.post('/login', (req, res) => {
                         // res.redirect('/dashboard');
                     } else {
                         return res.render('login', {
-                            title: 'Login -  Mondex',
+                            title: 'Login -  Hybrid Encrypt',
                             inputs: {
                                 email: email,
                                 password: password
@@ -564,7 +451,7 @@ router.post('/login', (req, res) => {
 router.post('/register', (req, res) => {
     
     const errors = {};
-    const {fullname, email, wallet, phone, nationality, referredBy, password, password2} = req.body;
+    const { email, password, password2} = req.body;
     
     if(!email || !validator.isEmail(email)){
         errors.email = 'Please enter a valid email';
@@ -582,7 +469,7 @@ router.post('/register', (req, res) => {
 
     if(errorsLength.length > 0){
         return res.render('register', {
-            title: 'Register - Mondex',
+            title: 'Register - Hybrid Encrypt',
             inputs: {
                 ...req.body
             },
@@ -595,7 +482,7 @@ router.post('/register', (req, res) => {
                 if(user){
                     errors.email = 'Email Already Exists!'
                     return res.render('register', {
-                        title: 'Register - Mondex',
+                        title: 'Register - Hybrid Encrypt',
                         inputs: {
                             ...req.body
                         },
@@ -607,10 +494,7 @@ router.post('/register', (req, res) => {
                     const newUser = new User({
                         email: email,
                         password: password,
-                        verified: true,
-                        verifyCode: cryptoRandomString({length: 10, type: 'url-safe'}),
                         resetPin: null,
-                        status: 'normal',
                         date: Date.now()
                     });
 
@@ -622,10 +506,8 @@ router.post('/register', (req, res) => {
                             // save the user
                             newUser.save()
                                 .then(user => {
-                                    // Send Email
-                                    Mailer(user.email, 'verify', {server: server, email: user.email, name: user.fullname, title: 'Welcome to Mondex', link: `${server}login?id=${user.id}&token=${user.verifyCode}`});
                                     // redirect to verify email page
-                                    res.redirect(`/verify?email=${email}`);
+                                    res.redirect(`/login?msg=Account Created! Please Login to Continue&msgType=success`);
                                 }).catch(err => {
                                     res.redirect('/register?msg=An Unknown Error Occured, Please Try Again&msgType=danger');
                                     console.log(err);
